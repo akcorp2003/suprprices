@@ -10,6 +10,7 @@ defmodule Suprprices.Application do
     children = [
       # Starts a worker by calling: Suprprices.Worker.start_link(arg)
       # {Suprprices.Worker, arg},
+      {Suprprices.Repo, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
