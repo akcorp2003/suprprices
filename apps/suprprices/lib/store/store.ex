@@ -1,5 +1,6 @@
 defmodule Suprprices.Store do
     use Ecto.Schema
+    import Ecto.Changeset
 
     schema "stores" do
         field :name, :string
@@ -14,5 +15,14 @@ defmodule Suprprices.Store do
         belongs_to :city, Suprprices.City
 
         timestamps
+    end
+
+    @required_fields ~w(name street cityname state zipcode)a
+    @optional_fields ~w(description)
+
+    def changeset(store, params \\ %{}) do
+        store
+        |> cast(params, @required_fields)
+        |> validate_required(@required_fields)
     end
 end

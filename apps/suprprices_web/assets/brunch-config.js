@@ -58,6 +58,8 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    whitelist: ["phoenix", "phoenix_html", "react",
+    "react-dom", "redux", "react-redux"]
   }
 };
