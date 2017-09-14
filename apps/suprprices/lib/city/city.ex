@@ -2,7 +2,6 @@ defmodule Suprprices.City do
     use Ecto.Schema
 
     import Ecto.Changeset
-    import Suprprices.CityQueries
 
     schema "cities" do
         field :name, :string
@@ -20,9 +19,5 @@ defmodule Suprprices.City do
         |> cast(params, @required_fields)
         |> validate_required(@required_fields)
         # |> validate_change
-    end
-
-    defp city_must_not_already_exist(cityname) do
-        get_city_name(cityname)
     end
 end
