@@ -14,11 +14,13 @@ defmodule Suprprices.Groceryitem do
         timestamps
     end
 
-    @required_fields ~w(name price price_selling_by store)a
+    @required_fields ~w(name price price_selling_by)a
     @optional_fields ~w(description)a
 
     def changeset(groceryitem, params \\ %{}) do
         groceryitem
+        |> Suprprices.Repo.preload(:store)
         |> cast(params, @required_fields ++ @optional_fields)
+        |> cast_assoc(:store)
     end
 end

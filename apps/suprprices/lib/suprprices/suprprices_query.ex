@@ -1,6 +1,7 @@
 defmodule Suprprices.GroceryQueries do
     import Ecto.Query
     import Suprprices.StoreQueries
+    import Suprprices.CityQueries
 
     alias Suprprices.{Repo, Groceryitem, Store, City}
 
@@ -24,7 +25,7 @@ defmodule Suprprices.GroceryQueries do
     end
 
     def create(grocery_item) do
-        %{store: value} = grocery_item
+        %{name: groceryname, description: grocerydescription, price: groceryprice, price_selling_by: grocerysellingby, store: value} = grocery_item
         %Suprprices.Store{name: storename, street: streetname, cityname: storecity, state: statename, zipcode: zip} = List.first value
         
         streetname
@@ -34,11 +35,32 @@ defmodule Suprprices.GroceryQueries do
         |> Kernel.<>(statename)
         |> get_store_by_address
         |> case do
-            no_return ->
-                %Suprprices.City{name: storecity, state: statename}
-
-            crap ->
+            [] ->
+                IO.puts "hello no return"
+                # %Suprprices.City{name: storecity, state: statename}
+                # |> get_city
+                """
+                |> case do
+                    no_return -> IO.puts "City does not exist"
+                    city ->
+                        IO.puts "City exists"
+                        IO.inspect city
+                    end
+                """
+            [store] ->
                 IO.puts "hello struct"
+                %City{name: storecity, state: statename}
+                |> get_city
+                |> case do
+                    [] -> IO.puts "City does not exist"
+                    [city] ->
+                        store_changeset = Store.changeset(store, %{name: store.name, description: store.description, street: store.street, cityname: store.cityname, state: store.state, zipcode: store.zipcode})
+                        
+                        grocery_changeset = Groceryitem.changeset(%Groceryitem{}, %{name: groceryname, description: grocerydescription, price: groceryprice, price_selling_by: grocerysellingby})
+                        
+                        Ecto.Changeset.put_assoc(store_changeset, :groceryitems, [grocery_changeset | store.groceryitems])
+                    end
+                |> Repo.update
             
             end
 
@@ -88,7 +110,8 @@ defmodule Suprprices.StoreQueries do
     end
 
     def create(store) do
-        change = Suprprices.Store.changeset(%Suprprices.Store{}, store)
-        Suprprices.Repo.insert(change)
+        %Store{name: storename, description: storedescription, street: storestreet, cityname: storecity, state: storestate, zipcode: storezip} = store
+        change = Store.changeset(%Store{}, %{name: storename, description: storedescription, street: storestreet, cityname: storecity, state: storestate, zipcode: storezip})
+        #Repo.insert(change)
     end
 end

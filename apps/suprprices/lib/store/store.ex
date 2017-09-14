@@ -18,7 +18,7 @@ defmodule Suprprices.Store do
     end
 
     @required_fields ~w(name street cityname state zipcode)a
-    @optional_fields ~w(description)
+    @optional_fields ~w(description, groceryitems)
 
     def changeset(store, params \\ %{}) do
         store
