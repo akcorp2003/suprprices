@@ -1,20 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import rootReducer from './reducers'
-import App from './components/App'
-let store = createStore(rootReducer)
-class HelloWorld extends React.Component {
-  render() {
-    return(
-    <Provider store={store}>
-      <App />
-      </Provider>)
-    
-  }
-}
+import React                    from 'react';
+import ReactDOM                 from 'react-dom';
+import { browserHistory }       from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import configureStore           from './store';
+import Root                     from './containers/root';
 
-ReactDOM.render(<HelloWorld/>,
-document.getElementById("hello-world")
-)
+const store = configureStore(browserHistory);
+const history = syncHistoryWithStore(browserHistory, store);
+
+const target = document.getElementById('main_container');
+const node = <Root routerHistory={history} store={store} />;
+
+ReactDOM.render(node, target);
