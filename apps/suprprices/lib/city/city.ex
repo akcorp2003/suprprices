@@ -3,6 +3,8 @@ defmodule Suprprices.City do
 
     import Ecto.Changeset
 
+    @derive {Poison.Encoder, only: [:id, :name, :state, :stores] }
+
     schema "cities" do
         field :name, :string
         field :state, :string

@@ -1,14 +1,21 @@
 defmodule Suprprices.CityQueries do
     import Ecto.Query
 
-    alias Suprprices.{Repo, City}
+    alias Suprprices.{Repo, City, Store}
 
     def get_all do
-        Repo.all(from City)
+        stores = from s in Store,
+            select: [s.id, s.name, s.description, s.cityname, s.state, s.zipcode]
+        Repo.all(from City, preload: [stores: ^stores])
     end
 
     def get_city_name(cityname) do
-        Repo.get_by(City, name: cityname)
+        stores = from s in Store,
+            select: [s.id, s.name, s.description, s.cityname, s.state, s.zipcode]
+
+        Repo.all from c in City,
+                    where: c.name == ^cityname,
+                    preload: [stores: ^stores]
     end
 
     def get_city(current_city) do
@@ -42,6 +49,14 @@ defmodule Suprprices.StoreQueries do
                     preload: [:groceryitems]
     end
 
+    def get_all do
+        city = from c in City,
+                select: [c.name, c.state]
+        groceries = from gi in Groceryitem,
+                        select: [gi.name, gi.description, gi.price, gi.price_selling_by]
+        Repo.all(from Store, preload: [city: ^city, groceryitems: ^groceries])
+    end
+
     def create(store) do
         # %Store{name: store.name, description: store.description, street: storestreet, cityname: storecity, state: storestate, zipcode: store.zipcode}
         %City{name: store.cityname, state: store.state}
@@ -56,8 +71,6 @@ defmodule Suprprices.StoreQueries do
         |> Repo.update
     end
 end
-
-
 
 defmodule Suprprices.GroceryQueries do
     import Ecto.Query
@@ -74,18 +87,17 @@ defmodule Suprprices.GroceryQueries do
     end
 
     def get_all do
+        stores = from s in Store,
+                    select: [s.id, s.name, s.description, s.cityname, s.state, s.zipcode]
         Repo.all from Groceryitem,
-                    preload: [:store]
+                    preload: [store: ^stores]
     end
 
     def get_all_from_store(storename) do
         query = from gi in Groceryitem,
-                join: s in Store, where: s.id == gi.store_id and s.name == ^storename
+                join: s in Store, where: s.id == gi.store_id and s.name == ^storename,
+                select: [gi.name, gi.description, gi.price, gi.price_selling_by]
         Repo.all(query)
-    end
-
-    def get_by_id(id) do
-        Ecto.get(Groceryitem, id)
     end
 
     def create(grocery_item) do

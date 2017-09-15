@@ -2,6 +2,8 @@ defmodule Suprprices.Store do
     use Ecto.Schema
     import Ecto.Changeset
 
+    @derive {Poison.Encoder, only: [:id, :name, :description, :street, :cityname, :state, :zipcode, :groceryitems] }    
+
     schema "stores" do
         field :name, :string
         field :description, :string

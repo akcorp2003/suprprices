@@ -3,6 +3,8 @@ defmodule Suprprices.Groceryitem do
 
     import Ecto.Changeset
 
+    @derive {Poison.Encoder, only: [:id, :name, :description, :price, :price_selling_by, :store] }
+
     schema "groceryitems" do
         field :name, :string
         field :description, :string

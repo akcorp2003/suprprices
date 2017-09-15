@@ -17,7 +17,11 @@ defmodule SuprpricesWeb.Router do
     pipe_through :api
 
     scope "/v1" do
-      post "/groceryitems", GroceryItemController, :create
+      resources "/groceryitems", GroceryItemController, only: [:index, :create]
+
+      resources "/stores", StoreController, only: [:index,:create]
+
+      resources "/cities", CityController, only: [:index, :create]
     end
   end
 
