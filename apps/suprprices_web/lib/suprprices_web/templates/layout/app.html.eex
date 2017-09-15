@@ -8,11 +8,14 @@
     <meta name="author" content="My boy Aland">
 
     <title>SuprPrices</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <!--<link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
   </head>
 
   <body>
-    <main id="main_container" role="main"></main>
+    <main role="main">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
