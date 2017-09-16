@@ -9,4 +9,3 @@ export default class MainPage extends React.Component {
             </div>)
     }
 }
-
