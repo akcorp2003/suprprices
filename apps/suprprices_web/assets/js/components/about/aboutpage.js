@@ -1,5 +1,5 @@
 import React from 'react';
-import MainHeader from '../MainHeader';
+import MainHeader from '../common/MainHeader';
 
 export default class AboutPage extends React.Component {
     render() {
