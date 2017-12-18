@@ -1,4 +1,5 @@
 import React from 'react';
+import MainHeader from '../MainHeader'
 
 export default class CitiesPage extends React.Component {
     getInitialState() {
@@ -10,10 +11,13 @@ export default class CitiesPage extends React.Component {
     }
 
     render() {
-        return (<div className="jumbotron">
-                  <h1>Suprprices</h1>
-                  <p> Find the cheapest grocery around town!</p>
-                  <p> Here is the cities!</p>
-              </div>)
+        return (
+                <div>
+                    <MainHeader />
+                    <div className="container text-center">
+                        <h1>Here are the cities!</h1>
+                    </div>
+                </div>
+                );
       }
 }

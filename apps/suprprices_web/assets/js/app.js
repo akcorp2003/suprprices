@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import CitiesPage from './components/cities/citiesPage';
 import AboutPage from './components/about/aboutpage';
 import MainPage from './components/mainpage';
+import GroceriesPage from './components/groceries/GroceriesPage';
+import StoresPage from './components/stores/StorePage';
 
 class App extends React.Component {
     render() {
@@ -17,6 +19,8 @@ class App extends React.Component {
                         <Route exact path='/' component={MainPage} />
                         <Route path='/about' component={AboutPage} />
                         <Route path='/cities' component={CitiesPage} />
+                        <Route path='/groceries' component={GroceriesPage} />
+                        <Route path='/stores' component={StoresPage} />
                     </Switch>
                 </div>
             </BrowserRouter>

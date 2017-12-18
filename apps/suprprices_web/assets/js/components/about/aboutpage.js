@@ -1,8 +1,10 @@
 import React from 'react';
+import MainHeader from '../MainHeader';
 
 export default class AboutPage extends React.Component {
     render() {
       return (<div >
+                <MainHeader />
                 <h1>About</h1>
                 <p> 
                     This application is about finding the cheapest grocery item in your area.
