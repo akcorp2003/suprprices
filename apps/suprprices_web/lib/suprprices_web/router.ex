@@ -19,7 +19,22 @@ defmodule SuprpricesWeb.Router do
     scope "/v1" do
       resources "/groceryitems", GroceryItemController, only: [:index, :create, :show], param: "groceryitem"
 
-      resources "/stores", StoreController, only: [:index, :create]
+      # This path can be /stores/[blah]/city/[blah]/state/[blah]
+      # OR
+      # /stores/[blah]/state/[blah]
+      # You can look up stores by city and state OR look up stores by state
+      resources "/stores", StoreController, only: [:index, :create, :show], param: "store" do
+        resources "/city", StoreController, only: [:index, :show], param: "city" do
+          resources "/state", StoreController, only: [:index, :show], param: "state"
+        end
+        resources "state", StoreController, only: [:index, :show], param: "state"
+      end
+
+      # This path can be /stores/city/[blah]/state/[blah]
+      # You can look up all stores in this city
+      resources "/stores/city", StoreController, only: [:index, :show], param: "storecity" do
+        resources "/state", StoreController, only: [:index, :show], param: "state"
+      end
 
       resources "/cities", CityController, only: [:index, :create, :show], param: "city" do
         resources "/states", CityController, only: [:index, :show], param: "state"

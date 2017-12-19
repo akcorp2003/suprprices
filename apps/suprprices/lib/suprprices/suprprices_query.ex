@@ -68,6 +68,29 @@ defmodule Suprprices.StoreQueries do
                     preload: [:groceryitems]
     end
 
+    def get_store_by_name(name) do
+        query = from s in Store,
+                select: [s.name, s.description, s.street, s.cityname, s.state, s.zipcode],
+                where: s.name == ^name
+        Repo.all query
+    end
+
+    def get_store_by_city_state(city, state) do
+        query = from s in Store,
+                select: [s.name, s.cityname, s.state, s.description, s.street, s.zipcode],
+                where: s.cityname == ^city and s.state == ^state
+
+        Repo.all query
+    end
+
+    def get_store_by_city_state(storename, city, state) do
+        query = from s in Store,
+                select: [s.name, s.cityname, s.state, s.description, s.street, s.zipcode],
+                where: s.name == ^storename and s.cityname == ^city and s.state == ^state
+
+        Repo.all query
+    end
+
     def get_all do
         city = from c in City,
                 select: [c.name, c.state]
