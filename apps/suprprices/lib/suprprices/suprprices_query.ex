@@ -120,9 +120,11 @@ defmodule Suprprices.GroceryQueries do
     end
 
     def get_grocery_by_name(groceryItemName) do
+        stores = from s in Store,
+                    select: [s.id, s.name, s.description, s.cityname, s.state, s.zipcode]
         query = from gi in Groceryitem,
                 where: gi.name == ^groceryItemName,
-                select: [gi.name, gi.description, gi.price, gi.price_selling_by]
+                preload: [store: ^stores]
         Repo.all(query)
     end
 
