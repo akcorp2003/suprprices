@@ -18,6 +18,15 @@ defmodule Suprprices.CityQueries do
                     preload: [stores: ^stores]
     end
 
+    def get_city_with_state(city, state) do
+        stores = from s in Store,
+            select: [s.id, s.name, s.description, s.cityname, s.state, s.zipcode]
+
+        Repo.all from c in City,
+                    where: c.name == ^city and c.state == ^state,
+                    preload: [stores: ^stores]
+    end
+
     def get_city(current_city) do
         %Suprprices.City{name: name_of_city, state: statename} = current_city
         Repo.all from c in City,
@@ -27,7 +36,15 @@ defmodule Suprprices.CityQueries do
     end
 
     def create(city) do
-        Repo.insert!(city)
+        %{"name" => cityname, "state" => statename} = city
+
+        get_city_with_state(cityname, statename)
+        |> case do
+            [] -> 
+                Repo.insert %City{name: cityname, state: statename}
+            _ -> 
+                {:error, "Nothing."}
+            end 
     end
 end
 

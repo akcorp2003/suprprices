@@ -21,7 +21,9 @@ defmodule SuprpricesWeb.Router do
 
       resources "/stores", StoreController, only: [:index,:create]
 
-      resources "/cities", CityController, only: [:index, :create]
+      resources "/cities", CityController, only: [:index, :create, :show], param: "city" do
+        resources "/states", CityController, only: [:index, :show], param: "state"
+      end
     end
   end
 
