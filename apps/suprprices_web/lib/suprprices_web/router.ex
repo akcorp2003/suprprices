@@ -17,9 +17,9 @@ defmodule SuprpricesWeb.Router do
     pipe_through :api
 
     scope "/v1" do
-      resources "/groceryitems", GroceryItemController, only: [:index, :create]
+      resources "/groceryitems", GroceryItemController, only: [:index, :create, :show], param: "groceryitem"
 
-      resources "/stores", StoreController, only: [:index,:create]
+      resources "/stores", StoreController, only: [:index, :create]
 
       resources "/cities", CityController, only: [:index, :create, :show], param: "city" do
         resources "/states", CityController, only: [:index, :show], param: "state"

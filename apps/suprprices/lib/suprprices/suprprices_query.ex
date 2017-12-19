@@ -42,8 +42,10 @@ defmodule Suprprices.CityQueries do
         |> case do
             [] -> 
                 Repo.insert %City{name: cityname, state: statename}
-            _ -> 
-                {:error, "Nothing."}
+            [city] -> 
+                {:error, "A city with the same name and state already exists."}
+            _ ->
+                {:error, "Something went wrong in the backend."}
             end 
     end
 end
@@ -113,6 +115,13 @@ defmodule Suprprices.GroceryQueries do
     def get_all_from_store(storename) do
         query = from gi in Groceryitem,
                 join: s in Store, where: s.id == gi.store_id and s.name == ^storename,
+                select: [gi.name, gi.description, gi.price, gi.price_selling_by]
+        Repo.all(query)
+    end
+
+    def get_grocery_by_name(groceryItemName) do
+        query = from gi in Groceryitem,
+                where: gi.name == ^groceryItemName,
                 select: [gi.name, gi.description, gi.price, gi.price_selling_by]
         Repo.all(query)
     end

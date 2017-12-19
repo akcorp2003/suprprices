@@ -24,7 +24,7 @@ defmodule SuprpricesWeb.CityController do
     def create(conn, city) do
         case Suprprices.CityQueries.create city do
             {:ok, struct} -> json(conn, %{response: "ok"})
-            {:error, info} -> json(conn, %{response: "error"})
+            {:error, info} -> json(conn, %{response: "error", info: info})
         end
     end
 
