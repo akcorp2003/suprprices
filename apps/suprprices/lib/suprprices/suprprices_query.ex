@@ -129,8 +129,10 @@ defmodule Suprprices.GroceryQueries do
     end
 
     def create(grocery_item) do
-        %{name: groceryname, description: grocerydescription, price: groceryprice, price_selling_by: grocerysellingby, store: value} = grocery_item
-        %Suprprices.Store{name: storename, street: streetname, cityname: storecity, state: statename, zipcode: zip} = List.first value
+        # %{name: groceryname, description: grocerydescription, price: groceryprice, price_selling_by: grocerysellingby, store: value} = grocery_item
+        %{"name" => groceryname, "description" => grocerydescription, "price" => groceryprice, "price_selling_by" => grocerysellingby, "store" => value } = grocery_item
+        # %Suprprices.Store{name: storename, street: streetname, cityname: storecity, state: statename, zipcode: zip} = value
+        %{"name" => storename, "street" => streetname, "cityname" => storecity, "state" => statename, "zipcode" => zip} = value
 
         streetname
         |> Kernel.<>( ",")

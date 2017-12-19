@@ -15,7 +15,7 @@ defmodule SuprpricesWeb.GroceryItemController do
 
     def create(conn, groceryitem) do
         case Suprprices.GroceryQueries.create groceryitem do
-            {:ok, struct} -> json(conn, %{response: "ok", info: struct})
+            {:ok, struct} -> json(conn, %{response: "ok", info: "ok"})
             {:error, info} -> json(conn, %{response: "error", info: info})
         end
     end
