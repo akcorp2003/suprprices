@@ -10,22 +10,30 @@ import MainPage from './components/mainpage';
 import GroceriesPage from './components/groceries/GroceriesPage';
 import StoresPage from './components/stores/StorePage';
 import notFoundPage from './components/404NotFound';
+import ManageCitiesPage from './components/cities/manageCityPage';
+import MainHeader from './components/common/MainHeader';
 
 class App extends React.Component {
     render() {
         return (
-            <BrowserRouter>
-                <div>
-                    <Switch>
-                        <Route exact path='/' component={MainPage} />
-                        <Route path='/about' component={AboutPage} />
-                        <Route path='/cities' component={CitiesPage} />
-                        <Route path='/groceries' component={GroceriesPage} />
-                        <Route path='/stores' component={StoresPage} />
-                        <Route component={notFoundPage} />
-                    </Switch>
-                </div>
-            </BrowserRouter>
+            <div>
+                <BrowserRouter>
+                    <div>
+                        <MainHeader />
+                        <Switch>
+                            <Route exact path='/' component={MainPage} />
+                            <Route path='/about' component={AboutPage} />
+                            <Route path='/cities' component={CitiesPage} />
+                            <Route path='/city' component={ManageCitiesPage} />
+                            <Route path='/groceries' component={GroceriesPage} />
+                            <Route path='/stores' component={StoresPage} />
+                            <Route component={notFoundPage} />
+                        </Switch>
+                    </div>
+                    
+                </BrowserRouter>
+                
+            </div>
         );
     }
 }

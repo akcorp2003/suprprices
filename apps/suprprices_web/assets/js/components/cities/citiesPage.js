@@ -13,7 +13,6 @@ export default class CitiesPage extends React.Component {
     render() {
         return (
                 <div>
-                    <MainHeader />
                     <div className="container text-center">
                         <h1>Here are the cities!</h1>
                     </div>

@@ -7,7 +7,6 @@ export default class MainPage extends React.Component {
     render() {
       return (
             <div>
-                <MainHeader />
                 <div className="container text-center">
                   <h1>Find the cheapest groceries in town!</h1>
                 </div>

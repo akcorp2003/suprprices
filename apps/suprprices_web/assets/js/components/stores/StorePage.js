@@ -13,7 +13,6 @@ export default class StoresPage extends React.Component {
     render() {
         return (
             <div>
-                <MainHeader />
                 <div className="container text-center">
                     <h1>Here are the stores!</h1>
                 </div>
