@@ -91,6 +91,14 @@ defmodule Suprprices.StoreQueries do
         Repo.all query
     end
 
+    def get_store_by_state(storename, state) do
+        query = from s in Store,
+                select: [s.name, s.cityname, s.state, s.description, s.street, s.zipcode],
+                where: s.state == ^state and s.name == ^storename
+
+        Repo.all query
+    end
+
     def get_all do
         city = from c in City,
                 select: [c.name, c.state]

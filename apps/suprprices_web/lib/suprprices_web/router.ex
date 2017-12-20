@@ -36,8 +36,10 @@ defmodule SuprpricesWeb.Router do
         resources "/state", StoreController, only: [:index, :show], param: "state"
       end
 
+      # This path can be /cities/[blah]/state/[blah]. However, this query is much slower than querying
+      # /stores/city/.../state/... . After a few hits, however, the query can speed up due to caching.
       resources "/cities", CityController, only: [:index, :create, :show], param: "city" do
-        resources "/states", CityController, only: [:index, :show], param: "state"
+        resources "/state", CityController, only: [:index, :show], param: "state"
       end
     end
   end

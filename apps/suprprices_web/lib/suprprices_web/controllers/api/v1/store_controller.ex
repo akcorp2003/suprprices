@@ -25,4 +25,10 @@ defmodule SuprpricesWeb.StoreController do
 
         render(conn, "index.json", all_stores: all_stores_in_city_with_name)
     end
+
+    def show(conn, %{"store_store" => storename, "state" => state}) do
+        all_stores_in_state_with_name = Suprprices.StoreQueries.get_store_by_state String.replace(storename, "+", " "), state
+
+        render(conn, "index.json", all_stores: all_stores_in_state_with_name)
+    end
 end
