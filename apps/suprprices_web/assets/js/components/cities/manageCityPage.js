@@ -1,21 +1,14 @@
 import React from 'react';
 import MainHeader from '../common/MainHeader'
+import CityForm from '../cities/cityForm'
 
 export default class ManageCitiesPage extends React.Component {
-    getInitialState() {
-        cities: []
-    }
 
-    componentWillMount() {
-        this.setState({ cities: null }); //make callout to api here?
-    }
-
+    /* This needs to be fixed. */
     render() {
         return (
             <div>
-                <div className="container text-center">
-                    <h1>Manage Cities</h1>
-                </div>
+                <CityForm />
             </div>
         );
     }
