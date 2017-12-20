@@ -31,4 +31,11 @@ defmodule SuprpricesWeb.StoreController do
 
         render(conn, "index.json", all_stores: all_stores_in_state_with_name)
     end
+
+    def create(conn, store) do
+        case Suprprices.StoreQueries.create store do
+            {:ok, struct} -> json(conn, %{response: "ok", info: "ok"})
+            {:error, info} -> json(conn, %{response: "error", info: info})
+        end
+    end
 end

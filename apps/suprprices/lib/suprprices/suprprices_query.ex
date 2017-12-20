@@ -108,14 +108,15 @@ defmodule Suprprices.StoreQueries do
     end
 
     def create(store) do
-        # %Store{name: store.name, description: store.description, street: storestreet, cityname: storecity, state: storestate, zipcode: store.zipcode}
-        %City{name: store.cityname, state: store.state}
+        %{"name" => name, "description" => description, "street" => storestreet, "cityname" => storecity, "state" => storestate, "zipcode" => zipcode} = store
+
+        %City{name: storecity, state: storestate}
         |> get_city
         |> case do
             [] -> IO.puts "City does not exist"
             [city] ->
                 city_changeset = City.changeset(city, %{name: city.name, state: city.state})
-                store_changeset = Store.changeset(%Store{}, %{name: store.name, description: store.description, street: store.street, cityname: store.cityname, state: store.state, zipcode: store.zipcode})
+                store_changeset = Store.changeset(%Store{}, %{name: name, description: description, street: storestreet, cityname: storecity, state: storestate, zipcode: zipcode})
                 Ecto.Changeset.put_assoc(city_changeset, :stores, [store_changeset | city.stores])
             end
         |> Repo.update
