@@ -9,6 +9,7 @@ import AboutPage from './components/about/aboutpage';
 import MainPage from './components/mainpage';
 import GroceriesPage from './components/groceries/GroceriesPage';
 import StoresPage from './components/stores/StorePage';
+import notFoundPage from './components/404NotFound';
 
 class App extends React.Component {
     render() {
@@ -21,6 +22,7 @@ class App extends React.Component {
                         <Route path='/cities' component={CitiesPage} />
                         <Route path='/groceries' component={GroceriesPage} />
                         <Route path='/stores' component={StoresPage} />
+                        <Route component={notFoundPage} />
                     </Switch>
                 </div>
             </BrowserRouter>
