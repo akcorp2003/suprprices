@@ -13,7 +13,6 @@ export default class ManageCitiesPage extends React.Component {
     render() {
         return (
             <div>
-                <MainHeader />
                 <div className="container text-center">
                     <h1>Manage Cities</h1>
                 </div>
